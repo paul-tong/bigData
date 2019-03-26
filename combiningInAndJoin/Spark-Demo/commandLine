@@ -1,0 +1,60 @@
+/home/peng/tools/hadoop/hadoop-2.8.5/bin/hadoop jar target/mr-demo-1.0.jar wc.WordCount input/hhg.txt output/result1.txt
+
+run on local command:
+spark-submit --class wc.WordCountMain --master local[4] --name "Word Count" target/spark-demo-1.0.jar input/hhg.txt output/result1.txt
+
+spark-submit --class twitter.CountFollowerF --master local[4] --name "Find Follower" target/spark-demo-1.0.jar input output/result1/F
+
+spark-submit --class twitter.SparkSQLExample --master local[4] --name "Find Follower" target/spark-demo-1.0.jar input output/result1/Test
+
+
+run on AWS:
+--class twitter.FindFollower
+s3://tong-bucket-mr1/input
+s3://tong-bucket-spark1/output1
+(change output folder everytime)
+
+download out file:
+aws s3 sync s3://tong-bucket-mr1/output2 output2
+
+aws s3 sync s3://tong-bucket-spark1/log log
+aws s3 sync s3://tong-bucket-mr1/week3/log log
+
+---------------------------------------
+spark-submit --class twitter.CountTriangleRepRDD --master local[4] --name "Count Triangle" target/spark-demo-1.0.jar /home/tong/Documents/NEU/Course/CS6240/data/test/edges.csv output/result2/Rep-RDD
+
+spark-submit --class twitter.CountTriangleRepDF --master local[4] --name "Count Triangle" target/spark-demo-1.0.jar /home/tong/Documents/NEU/Course/CS6240/data/test/edges.csv output/result2/Rep-DF
+
+spark-submit --class twitter.CountTriangleRSRDD --master local[4] --name "Count Triangle" target/spark-demo-1.0.jar /home/tong/Documents/NEU/Course/CS6240/data/test/edges.csv output/result2/RS-RDD
+
+spark-submit --class twitter.CountTriangleRSDF --master local[4] --name "Count Triangle" target/spark-demo-1.0.jar /home/tong/Documents/NEU/Course/CS6240/data/test/edges.csv output/result2/RS-DF
+
+-------------------------------------------
+rep:
+
+--class twitter.CountTriangleRepRDD 
+s3://tong-bucket-mr1/input/edges.csv
+s3://tong-bucket-mr1/week3/output/rep-rdd-10000
+10000
+
+--class twitter.CountTriangleRepDF 
+s3://tong-bucket-mr1/input/edges.csv
+s3://tong-bucket-mr1/week3/output/rep-df-10000
+10000
+
+rs:
+spark-submit --deploy-mode cluster --class twitter.CountTriangleRSRDD s3://tong-bucket-spark1/spark-twitter-1.0.jar s3://tong-bucket-mr1/input s3://tong-bucket-spark1/output2
+
+select "spark application:"
+
+--class twitter.CountTriangleRSRDD
+s3://tong-bucket-mr1/input/edges.csv
+s3://tong-bucket-mr1/week3/output/rs-r-10000
+10000
+
+--class twitter.CountTriangleRSDF
+s3://tong-bucket-mr1/input/edges.csv
+s3://tong-bucket-mr1/week3/output/rs-df-10000
+10000
+
+
