@@ -1,0 +1,7 @@
+answerId: id of the answer
+answerQuality: quality of the answer(based on the score), "0" means good, "1" means average, "2" means poor
+answerUserReputation: reputation score of user that gave the answer
+anwserWordCount: count of words of this answer
+anwserTotalCount: count of total anwsers of this question
+questionScore: score of this question
+questionUserReputation: reputation score of user that asked the question
